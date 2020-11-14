@@ -6,16 +6,23 @@
 
 using namespace std;
 
-void Create(int* c, const int size, const int Low, const int High) {
-    for (int i = 0; i < size; i++)
-        c[i] = Low + rand() % (High - Low + 1);
+void Create_r(int* c, const int size, const int Low, const int High, int i) {
+   if (i == size) {
+        return;
+    }
+    c[i] = Low + rand() % (High - Low + 1);
+    Create_r(c, size, Low, High, i + 1);
 }
 
-void Print(int* c, const int size) {
-    for (int i = 0; i < size; i++)
-        cout << setw(4) << c[i];
-    cout << endl;
+void Print_r(int* c, const int size, int i) {
+    if (i == size) {
+        cout << endl;
+        return;
+    }
+    cout << setw(4) << c[i];
+    Print_r(c, size, i + 1);
 }
+
 
 double Avg_r(int* c, const int size, int i) {
     if (i == size)  return 0;
@@ -33,8 +40,8 @@ int main() {
     int Low = 15;
     int High = 85;
 
-    Create(c, n, Low, High);
-    Print(c, n);
+    Create_r(c, n, Low, High, 0);
+    Print_r(c, n, 0);
     cout << "Average = " << Avg_r(c, n, 0) << endl;
 
     return 0;
